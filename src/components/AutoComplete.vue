@@ -1,59 +1,73 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import type { NewsItem } from '../utils/dataset'
-import { getNewsList } from '../utils/dataset'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { getNewsList, NewsItem } from '../utils/dataset'
+import { debounce } from '../utils'
 
-const suggestions = ref<NewsItem[]>(getNewsList(1000))
-const inputValue = ref('')
-const showSuggestions = ref(false)
-const activeIndex = ref(-1)
+const props = defineProps(['modelValue'])
+const emit = defineEmits([
+  'update:modelValue',
+  'search'
+])
+
+const suggestions = getNewsList(1000)
 const inputRef = ref<HTMLInputElement | null>(null)
+const showSuggestions = ref(false)
+const filteredSuggestions = ref<NewsItem[]>([])
 
-const filteredSuggestions = computed(() => {
-  if (!inputValue.value) return []
+const handleInput = debounce((e: Event) => {
+  const target = e.target as HTMLInputElement
+  const value = target.value || ''
+  emit('update:modelValue', value)
 
-  return suggestions.value
-    .filter(s =>
-      s.title.toLowerCase().includes(inputValue.value.toLowerCase())
-    )
-    .slice(0, 15)
-})
+  handleFilter(value)
+}, 300)
 
-const handleFocus = () => {
-  if (filteredSuggestions.value.length) showSuggestions.value = true
-}
-
-const handleInput = () => {
-  // activeIndex.value = -1
-  // showSuggestions.value = true
-}
-
-const handleBlur = () => {
-  showSuggestions.value = false
-}
-
-const handleArrowDown = () => {
-  if (activeIndex.value < filteredSuggestions.value.length - 1) {
-    activeIndex.value += 1
+const handleFilter = (value?: string) => {
+  if (value) {
+    // 只筛选匹配的前15条数据显示
+    const newArr = []
+    for (const s of suggestions) {
+      if (s.title.toLowerCase().includes(value.toLowerCase())) {
+        newArr.push(s)
+      }
+      if (newArr.length === 15) break
+    }
+    filteredSuggestions.value = newArr
+  } else {
+    filteredSuggestions.value = []
   }
 }
 
-const handleArrowUp = () => {
-  if (activeIndex.value > 0) {
-    activeIndex.value -= 1
+const handleSelect = (title: string) => {
+  emit('update:modelValue', title)
+  emit('search', props.modelValue)
+}
+
+const handleSearch = () => {
+  if (!filteredSuggestions.value.length) return
+  emit('search', props.modelValue)
+  if (showSuggestions.value) {
+    inputRef.value?.blur()
   }
 }
 
-const handleEnter = () => {
-  if (activeIndex.value >= 0 && activeIndex.value < filteredSuggestions.value.length) {
-    selectSuggestion(activeIndex.value)
+const handleDelete = (item: NewsItem) => {
+  const index = suggestions.findIndex(s => s.title === item.title)
+  if (index >= 0) {
+    suggestions.splice(index, 1)
+    handleFilter(props.modelValue)
   }
 }
 
-const selectSuggestion = (index: number) => {
-  activeIndex.value = index
-  inputValue.value = filteredSuggestions.value[index].title
-  showSuggestions.value = false
+const handleClear = () => {
+  emit('update:modelValue', '')
+  handleFilter()
+}
+
+const handleClickOutside = (event: MouseEvent) => {
+  if (inputRef.value && !inputRef.value.contains(event.target as Node)) {
+    showSuggestions.value = false
+  }
 }
 
 onMounted(() => {
@@ -64,53 +78,47 @@ onBeforeUnmount(() => {
   window.removeEventListener('click', handleClickOutside)
 })
 
-const handleClickOutside = (event: MouseEvent) => {
-  if (inputRef.value && !inputRef.value.contains(event.target as Node)) {
-    showSuggestions.value = false
-  }
-}
+
 </script>
 
 <template>
-  <div>
-    <input
-      ref="input"
-      v-model="inputValue"
-      @focus="handleFocus"
-      @input="handleInput"
-      @blur="handleBlur"
-      @keydown.down="handleArrowDown"
-      @keydown.up="handleArrowUp"
-      @keydown.enter="handleEnter"
-    />111
-    <ul v-if="showSuggestions" class="suggestions">
-      <li
-        v-for="(item, index) in filteredSuggestions"
-        :key="index"
-        :class="{ active: index === activeIndex }"
-        @click="selectSuggestion(index)"
+  <div class="relative">
+    <div class="border flex justify-between items-center rounded-lg overflow-hidden">
+      <input
+        class="grow px-2.5"
+        ref="inputRef"
+        :value="modelValue"
+        type="text"
+        placeholder="请输入关键字搜索"
+        inputmode="search"
+        @focus="showSuggestions = true"
+        @input="handleInput"
+        @keydown.enter="handleSearch"
+      />
+      <i
+        v-show="!!modelValue"
+        class="iconfont icon-close p-2 hover:text-sky-400 cursor-pointer"
+        @click="handleClear"
+      />
+      <span
+        class="bg-sky-400 text-white w-10 h-10 flex justify-center items-center cursor-pointer"
+        :class="filteredSuggestions.length ? '' : 'pointer-events-none bg-slate-300'"
+        @click="handleSearch"
       >
-        {{ item.title }}
+        <i class="iconfont icon-search"></i>
+      </span>
+    </div>
+    <ul class="border absolute top-11 w-full rounded-lg" v-if="showSuggestions && filteredSuggestions.length">
+      <li
+        class="cursor-pointer hover:bg-sky-400/10 flex justify-between items-center"
+        v-for="(s, sIndex) in filteredSuggestions"
+        :key="sIndex"
+        :class="s.title === modelValue ? 'bg-sky-400/10' : ''"
+        @click="handleSelect(s.title)"
+      >
+        <span class="py-1.5 px-2.5">{{ s.title }}</span>
+        <i class="iconfont icon-close py-1.5 px-2.5 hover:text-sky-400" @click.stop="handleDelete(s)" />
       </li>
     </ul>
   </div>
 </template>
-
-<style scoped>
-.suggestions {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border: 1px solid #ccc;
-  border-top: none;
-}
-
-.suggestions li {
-  padding: 8px;
-  cursor: pointer;
-}
-
-.suggestions li.active {
-  background-color: #f0f0f0;
-}
-</style>

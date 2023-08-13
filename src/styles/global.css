@@ -8,8 +8,5 @@ html, body {
 
 #app {
   min-height: 100%;
-}
-
-input:focus {
-  outline: none;
+  background: #f6f6f6;
 }
