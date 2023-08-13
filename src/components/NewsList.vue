@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { NewsItem } from '../utils/dataset'
+import LazyImage from './LazyImage.vue'
 
 const props = defineProps({
   list: {
@@ -30,8 +31,12 @@ const props = defineProps({
           </div>
           <div class="text-sm text-gray-400 mt-2">{{ l.date }}</div>
         </div>
-        <img
+        <!-- <img
           class="md:w-32 md:h-32 w-20 h-20 object-cover shrink-0 rounded ml-2.5 shadow-md border mt-2"
+          :src="`/images/${l.image}`"
+        /> -->
+        <lazy-image
+          class="md:w-32 md:h-32 w-20 h-20 shrink-0 ml-2.5 mt-2"
           :src="`/images/${l.image}`"
         />
       </div>

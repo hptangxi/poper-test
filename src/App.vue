@@ -14,5 +14,5 @@ onMounted(() => {
 </template>
 
 <style>
-@import url("//at.alicdn.com/t/c/font_4208217_ndueh2tlsvm.css");
+@import url("//at.alicdn.com/t/c/font_4208217_km4dn1fice.css");
 </style>
