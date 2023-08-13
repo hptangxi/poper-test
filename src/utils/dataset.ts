@@ -14,7 +14,8 @@ const countries = [
 export type NewsItem = {
   title: string
   date: string
-  image: string
+  image: string,
+  desc: string
 }
 
 export const getNewsList = (count: number): NewsItem[] => {
@@ -34,7 +35,8 @@ export const getNewsList = (count: number): NewsItem[] => {
       newsArr.push({
         title,
         date: currentDate.toISOString().slice(0, 10),
-        image: `news_${randomIndex}.jpeg`
+        image: `news_${randomIndex}.jpeg`,
+        desc: 'An approachable, performant and versatile framework for building web user interfaces. Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation. Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.'
       })
     }
   }

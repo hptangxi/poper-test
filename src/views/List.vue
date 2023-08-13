@@ -1,10 +1,88 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import AutoComplete from '../components/AutoComplete.vue'
+import NewsList from '../components/NewsList.vue'
+import { getNewsList, NewsItem } from '../utils/dataset'
+import { getFilteredList } from '../utils'
 
 const searchKey = ref('')
+
+const totalList = getNewsList(1000)
+let curPage = 1
+let pageSize = 10
+let totalPages = 0
+let lastSearch: {
+  key: string,
+  list: NewsItem[]
+} = {
+  key: '',
+  list: []
+}
+
+const displayList = ref<NewsItem[]>([])
+
+const getDisplayList = () => {
+  let list: NewsItem[]
+  if (searchKey.value && searchKey.value === lastSearch.key) {
+    list = lastSearch.list
+  } else {
+    list = searchKey.value ? getFilteredList(totalList, 'title', searchKey.value) : totalList
+    lastSearch.key = searchKey.value
+    lastSearch.list = list
+  }
+  const startIndex = (curPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  displayList.value = list.slice(startIndex, endIndex);
+  totalPages = Math.ceil(list.length / pageSize)
+}
+getDisplayList()
+
+const handleSearch = () => {
+  curPage = 1
+  getDisplayList()
+}
+
+const changePage = (page: number) => {
+  curPage = page
+  getDisplayList()
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
+}
 </script>
 
 <template>
-  <auto-complete v-model="searchKey" />
+  <auto-complete
+    v-model="searchKey"
+    :list="totalList"
+    @change="handleSearch"
+  />
+  <news-list :list="displayList" :total="totalPages" />
+  <div class="mt-5 text-center">
+    <span>{{ curPage }}</span>
+    <span class="text-gray-400"> / {{ totalPages }}</span>
+  </div>
+  <div class="flex mt-2 pb-6">
+    <button
+      class="grow p-3 rounded-lg bg-sky-400 text-white font-bold"
+      :class="{
+        'mr-1.5': curPage < totalPages
+      }"
+      v-show="curPage > 1"
+      @click="changePage(curPage - 1)"
+    >
+      上一页
+    </button>
+    <button
+      class="grow p-3 rounded-lg bg-sky-400 text-white font-bold"
+      :class="{
+        'ml-1.5': curPage > 1
+      }"
+      v-show="curPage < totalPages"
+      @click="changePage(curPage + 1)"
+    >
+      下一页
+    </button>
+  </div>
 </template>

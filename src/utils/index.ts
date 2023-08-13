@@ -8,3 +8,18 @@ export const debounce = <T extends (...args: any[]) => void>(func: T, delay: num
     }, delay)
   }
 }
+
+export const getFilteredList = (list: any[], key: string, value?: string, count?: number) => {
+  if (value) {
+    const newArr = []
+    for (const s of list) {
+      if (s[key].toLowerCase().includes(value.toLowerCase())) {
+        newArr.push(s)
+      }
+      if (count && newArr.length === count) break
+    }
+    return newArr
+  } else {
+    return []
+  }
+}

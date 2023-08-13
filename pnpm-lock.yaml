@@ -5,6 +5,7 @@ specifiers:
   autoprefixer: ^10.4.14
   element-plus: ^2.3.9
   postcss: ^8.4.27
+  smoothscroll-polyfill: ^0.4.4
   tailwindcss: ^3.3.3
   typescript: ^5.0.2
   vite: ^4.4.5
@@ -15,6 +16,7 @@ specifiers:
 
 dependencies:
   element-plus: 2.3.9_vue@3.3.4
+  smoothscroll-polyfill: 0.4.4
   vue: 3.3.4
   vue-router: 4.2.4_vue@3.3.4
 
@@ -1317,6 +1319,10 @@ packages:
   /siginfo/2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
     dev: true
+
+  /smoothscroll-polyfill/0.4.4:
+    resolution: {integrity: sha512-TK5ZA9U5RqCwMpfoMq/l1mrH0JAR7y7KRvOBx0n2869aLxch+gT9GhN3yUfjiw+d/DiF1mKo14+hd62JyMmoBg==}
+    dev: false
 
   /source-map-js/1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}

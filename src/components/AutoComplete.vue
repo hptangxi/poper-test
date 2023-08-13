@@ -1,20 +1,31 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { getNewsList, NewsItem } from '../utils/dataset'
-import { debounce } from '../utils'
+import { NewsItem } from '../utils/dataset'
+import { debounce, getFilteredList } from '../utils'
 
-const props = defineProps(['modelValue'])
-const emit = defineEmits([
-  'update:modelValue',
-  'search'
-])
+const props = defineProps({
+  modelValue: {
+    type: String,
+    required: true
+  },
+  list: {
+    type: Array as () => Array<NewsItem>,
+    required: true
+  }
+})
 
-const suggestions = getNewsList(1000)
+const emit = defineEmits<{
+  'update:modelValue': [value: string],
+  change: [value: string]
+}>()
+
+const suggestions = [...props.list]
 const inputRef = ref<HTMLInputElement | null>(null)
 const showSuggestions = ref(false)
 const filteredSuggestions = ref<NewsItem[]>([])
 
 const handleInput = debounce((e: Event) => {
+  if (!showSuggestions.value) showSuggestions.value = true
   const target = e.target as HTMLInputElement
   const value = target.value || ''
   emit('update:modelValue', value)
@@ -23,32 +34,24 @@ const handleInput = debounce((e: Event) => {
 }, 300)
 
 const handleFilter = (value?: string) => {
-  if (value) {
-    // 只筛选匹配的前15条数据显示
-    const newArr = []
-    for (const s of suggestions) {
-      if (s.title.toLowerCase().includes(value.toLowerCase())) {
-        newArr.push(s)
-      }
-      if (newArr.length === 15) break
-    }
-    filteredSuggestions.value = newArr
-  } else {
-    filteredSuggestions.value = []
-  }
+  filteredSuggestions.value = getFilteredList(suggestions, 'title', value, 15)
+  if (!value) handleChange('')
 }
 
 const handleSelect = (title: string) => {
   emit('update:modelValue', title)
-  emit('search', props.modelValue)
+  handleChange(props.modelValue)
 }
 
 const handleSearch = () => {
   if (!filteredSuggestions.value.length) return
-  emit('search', props.modelValue)
-  if (showSuggestions.value) {
-    inputRef.value?.blur()
-  }
+  handleChange(props.modelValue)
+  if (showSuggestions.value) showSuggestions.value = false
+}
+
+const handleChange = (value: string) => {
+  emit('change', value)
+  inputRef.value?.blur()
 }
 
 const handleDelete = (item: NewsItem) => {
@@ -108,7 +111,7 @@ onBeforeUnmount(() => {
         <i class="iconfont icon-search"></i>
       </span>
     </div>
-    <ul class="border absolute top-11 w-full rounded-lg" v-if="showSuggestions && filteredSuggestions.length">
+    <ul class="border absolute top-11 w-full rounded-lg z-10 bg-white" v-if="showSuggestions && filteredSuggestions.length">
       <li
         class="cursor-pointer hover:bg-sky-400/10 flex justify-between items-center"
         v-for="(s, sIndex) in filteredSuggestions"
