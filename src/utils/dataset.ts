@@ -18,28 +18,27 @@ export type NewsItem = {
   desc: string
 }
 
-export const getNewsList = (count: number): NewsItem[] => {
+const createNewsList = (count: number): NewsItem[] => {
+  console.log('=================> createNewsList')
   const newsArr: NewsItem[] = []
-  const usedTitles = new Set()
+  let countryIndex = 0
 
   while (newsArr.length < count) {
-    const randomIndex = Math.floor(Math.random() * countries.length)
-    const randomNumber = Math.floor(10000 + Math.random() * 90000)
-    const title = `${countries[randomIndex]} has ${ randomNumber } news`
+    const title = `${countries[countryIndex]}${ newsArr.length + 1 }`
+    countryIndex = countryIndex >= countries.length - 1 ? 0 : countryIndex + 1
 
-    if (!usedTitles.has(title)) {
-      usedTitles.add(title)
-      const currentDate = new Date()
-      currentDate.setDate(currentDate.getDate() - newsArr.length)
+    const currentDate = new Date()
+    currentDate.setDate(currentDate.getDate() - newsArr.length)
 
-      newsArr.push({
-        title,
-        date: currentDate.toISOString().slice(0, 10),
-        image: `news_${randomIndex}.jpeg`,
-        desc: 'An approachable, performant and versatile framework for building web user interfaces. Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation. Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.'
-      })
-    }
+    newsArr.push({
+      title,
+      date: currentDate.toISOString().slice(0, 10),
+      image: `news_${countryIndex}.jpeg`,
+      desc: 'An approachable, performant and versatile framework for building web user interfaces. Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation. Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.'
+    })
   }
 
   return newsArr
 }
+
+export const totalList = createNewsList(1000)

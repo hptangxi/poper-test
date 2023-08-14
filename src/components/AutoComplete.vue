@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { NewsItem } from '../utils/dataset'
+import { NewsItem, totalList } from '../utils/dataset'
 import { debounce, getFilteredList } from '../utils'
 
 const props = defineProps({
   modelValue: {
     type: String,
-    required: true
-  },
-  list: {
-    type: Array as () => Array<NewsItem>,
     required: true
   }
 })
@@ -19,7 +15,7 @@ const emit = defineEmits<{
   change: [value: string]
 }>()
 
-const suggestions = [...props.list]
+const suggestions = [...totalList]
 const inputRef = ref<HTMLInputElement | null>(null)
 const showSuggestions = ref(false)
 const filteredSuggestions = ref<NewsItem[]>([])

@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import AutoComplete from '../components/AutoComplete.vue'
 import NewsList from '../components/NewsList.vue'
-import { getNewsList, NewsItem } from '../utils/dataset'
+import { totalList, NewsItem } from '../utils/dataset'
 import { getFilteredList } from '../utils'
 
 const searchKey = ref('')
 
-const totalList = getNewsList(1000)
 let curPage = 1
 let pageSize = 10
 let totalPages = 0
@@ -45,10 +44,7 @@ const handleSearch = () => {
 const changePage = (page: number) => {
   curPage = page
   getDisplayList()
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  })
+  window.scrollTo({ top: 0 })
 }
 </script>
 
@@ -57,7 +53,6 @@ const changePage = (page: number) => {
     <div class="max-w-screen-lg p-4 mt-0 mx-auto">
       <auto-complete
         v-model="searchKey"
-        :list="totalList"
         @change="handleSearch"
       />
     </div>

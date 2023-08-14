@@ -5,8 +5,8 @@ const props = defineProps({
   src: String
 })
 
-const loaded = ref(false)
-const imageRef = ref<HTMLElement | null>(null)
+const imageRef = ref<HTMLImageElement | null>(null)
+const imageSrc = ref('')
 
 const handleIntersect = (entries: IntersectionObserverEntry[]) => {
   entries.forEach(entry => {
@@ -18,12 +18,8 @@ const handleIntersect = (entries: IntersectionObserverEntry[]) => {
 }
 
 const loadImage = () => {
-  if (props.src && !loaded.value) {
-    const img = new Image()
-    img.src = props.src
-    img.onload = () => {
-      loaded.value = true
-    }
+  if (props.src && !imageSrc.value) {
+    imageSrc.value = props.src
   }
 }
 
@@ -43,7 +39,7 @@ onMounted(() => {
 <template>
   <img
     class="object-cover rounded-lg border"
-    :src="loaded ? src : '/images/image.png'"
+    :src="imageSrc || '/images/image.png'"
     alt=""
     ref="imageRef"
   />

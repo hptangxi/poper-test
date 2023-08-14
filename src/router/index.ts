@@ -5,14 +5,17 @@ import List from '../views/List.vue'
 const routes = [
   {
     path: '/',
+    name: 'List',
     component: List
   },
   {
     path: '/login',
+    name: 'Login',
     component: Login
   },
   {
-    path: '/detail/:id',
+    path: '/detail/:title',
+    name: 'Detail',
     component: () => import('../views/Detail.vue')
   }
 ]
