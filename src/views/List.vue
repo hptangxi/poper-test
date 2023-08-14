@@ -53,36 +53,43 @@ const changePage = (page: number) => {
 </script>
 
 <template>
-  <auto-complete
-    v-model="searchKey"
-    :list="totalList"
-    @change="handleSearch"
-  />
-  <news-list :list="displayList" :total="totalPages" />
-  <div class="mt-5 text-center">
-    <span>{{ curPage }}</span>
-    <span class="text-gray-400"> / {{ totalPages }}</span>
+  <div class="fixed bg-white w-full shadow z-10 left-0 top-0">
+    <div class="max-w-screen-lg p-4 mt-0 mx-auto">
+      <auto-complete
+        v-model="searchKey"
+        :list="totalList"
+        @change="handleSearch"
+      />
+    </div>
   </div>
-  <div class="flex mt-2 pb-6">
-    <button
-      class="grow p-3 rounded-lg bg-sky-400 text-white font-bold"
-      :class="{
-        'mr-1.5': curPage < totalPages
-      }"
-      v-show="curPage > 1"
-      @click="changePage(curPage - 1)"
-    >
-      上一页
-    </button>
-    <button
-      class="grow p-3 rounded-lg bg-sky-400 text-white font-bold"
-      :class="{
-        'ml-1.5': curPage > 1
-      }"
-      v-show="curPage < totalPages"
-      @click="changePage(curPage + 1)"
-    >
-      下一页
-    </button>
+  <div class="h-16"></div>
+  <div class="p-4">
+    <news-list :list="displayList" :total="totalPages" />
+    <div class="mt-5 text-center">
+      <span>{{ curPage }}</span>
+      <span class="text-gray-400"> / {{ totalPages }}</span>
+    </div>
+    <div class="flex mt-2 pb-6">
+      <button
+        class="grow p-3 rounded-lg bg-sky-400 text-white font-bold"
+        :class="{
+          'mr-1.5': curPage < totalPages
+        }"
+        v-show="curPage > 1"
+        @click="changePage(curPage - 1)"
+      >
+        上一页
+      </button>
+      <button
+        class="grow p-3 rounded-lg bg-sky-400 text-white font-bold"
+        :class="{
+          'ml-1.5': curPage > 1
+        }"
+        v-show="curPage < totalPages"
+        @click="changePage(curPage + 1)"
+      >
+        下一页
+      </button>
+    </div>
   </div>
 </template>

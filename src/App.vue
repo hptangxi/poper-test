@@ -8,7 +8,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="max-w-screen-lg mt-0 mx-auto p-4">
+  <div class="max-w-screen-lg mt-0 mx-auto">
     <router-view />
   </div>
 </template>
