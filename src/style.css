@@ -14,3 +14,46 @@ html, body {
 input:focus {
   outline: none;
 }
+
+input:-internal-autofill-selected {
+  background: transparent
+}
+
+.form-group {
+  @apply my-2.5 text-base;
+}
+
+.form-label {
+  @apply block mx-0 mt-1.5 mb-[0.187rem] font-bold align-baseline;
+}
+
+.form-input {
+  @apply w-full max-w-[540px] py-2.5 px-2 border rounded bg-white;
+}
+
+.form-input:focus {
+  outline: 0;
+  border: 1px solid #16bfb7;
+}
+
+input[type=checkbox] {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 5px;
+  vertical-align: middle;
+  border: 1px solid #a9a9a9;
+  margin: 0;
+  margin-right: 3px;
+  padding: 0;
+  outline: none
+}
+
+input[type=checkbox]:checked {
+  border-color: #16bfb7;
+  background: #16bfb7;
+  background-image: url(data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2aWV3Qm94PScwIDAgMTYgMTYnIGZpbGw9JyNmZmYnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHBhdGggZD0nTTUuNzA3IDcuMjkzYTEgMSAwIDAgMC0xLjQxNCAxLjQxNGwyIDJhMSAxIDAgMCAwIDEuNDE0IDBsNC00YTEgMSAwIDAgMC0xLjQxNC0xLjQxNEw3IDguNTg2IDUuNzA3IDcuMjkzeicvPjwvc3ZnPg==)
+}
