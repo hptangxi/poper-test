@@ -35,6 +35,7 @@ const submit = () => {
     <div class="my-5">
       <button
         class="bg-primary text-white h-9 px-7 rounded-2xl border-0 shadow"
+        id="submit-btn"
         @click="submit"
       >
         log in
