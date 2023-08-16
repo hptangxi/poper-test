@@ -36,7 +36,7 @@ describe('LazyImage component', () => {
       },
     })
 
-    expect(wrapper.find('img').attributes('src')).toBe('/images/image.png')
+    expect(wrapper.find('img').attributes('src')).toBe('/poper-test/images/image.png')
 
     wrapper.trigger('intersect')
     await nextTick()

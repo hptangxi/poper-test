@@ -41,7 +41,7 @@ const goDetail = (item: NewsItem) => {
         </div>
         <lazy-image
           class="md:w-32 md:h-32 w-20 h-20 shrink-0 ml-2.5 mt-2"
-          :src="`/images/${l.image}`"
+          :src="`/poper-test/images/${l.image}`"
         />
       </div>
     </li>

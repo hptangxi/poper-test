@@ -39,7 +39,7 @@ onMounted(() => {
 <template>
   <img
     class="object-cover rounded-lg border"
-    :src="imageSrc || '/images/image.png'"
+    :src="imageSrc || '/poper-test/images/image.png'"
     alt=""
     ref="imageRef"
   />

@@ -36,16 +36,16 @@ const onAudioPlay = () => {
         playsinline
         webkit-playsinline
         preload="metadata"
-        :poster="`/images/${detail.image}`"
+        :poster="`/poper-test/images/${detail.image}`"
         @play="onVideoPlay"
       >
-        <source src="/media/movie.mp4" type="video/mp4" />
+        <source :src="'/poper-test/media/movie.mp4'" type="video/mp4" />
       </video>
     </div>
     <audio
       ref="audioRef"
       class="mt-5"
-      src="/media/music.mp3"
+      :src="'/poper-test/media/music.mp3'"
       controls
       @play="onAudioPlay"
     />
