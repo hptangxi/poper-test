@@ -8,7 +8,8 @@ describe('Login Page', () => {
   const router = createRouter({
     history: createWebHistory(),
     routes: [
-      { path: '/', component: List }
+      { path: '/', component: List },
+      { path: '/login', component: Login }
     ]
   })
 
@@ -50,7 +51,6 @@ describe('Login Page', () => {
 
     await router.isReady()
     const currentRoute = router.currentRoute.value
-
     expect(currentRoute.path).toBe('/')
   })
 })

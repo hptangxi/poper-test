@@ -19,7 +19,6 @@ export type NewsItem = {
 }
 
 const createNewsList = (count: number): NewsItem[] => {
-  console.log('=================> createNewsList')
   const newsArr: NewsItem[] = []
   let countryIndex = 0
 
