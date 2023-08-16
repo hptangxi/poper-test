@@ -33,9 +33,9 @@ const goDetail = (item: NewsItem) => {
     >
       <div class="flex justify-between items-start">
         <div>
-          <div class="text-sky-500 font-bold text-lg">{{ l.title }}</div>
+          <div class="news-title text-sky-500 font-bold text-lg">{{ l.title }}</div>
           <div>
-            <p class="line-clamp-3">{{ l.desc }}</p>
+            <p class="news-desc line-clamp-3">{{ l.desc }}</p>
           </div>
           <div class="text-sm text-gray-400 mt-2">{{ l.date }}</div>
         </div>
