@@ -9,7 +9,11 @@ onMounted(() => {
 
 <template>
   <div class="max-w-screen-lg mt-0 mx-auto">
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 
