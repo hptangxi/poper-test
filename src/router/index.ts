@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Login from '@/views/Login.vue'
-import List from '@/views/List.vue'
+import Login from '../views/Login.vue'
+import List from '../views/List.vue'
 
 const routes = [
   {

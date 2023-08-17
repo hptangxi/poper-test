@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import AutoComplete from '@/components/AutoComplete.vue'
-import NewsList from '@/components/NewsList.vue'
-import { totalList, NewsItem } from '@/utils/dataset'
-import { getFilteredList } from '@/utils'
+import AutoComplete from '../components/AutoComplete.vue'
+import NewsList from '../components/NewsList.vue'
+import { totalList, NewsItem } from '../utils/dataset'
+import { getFilteredList } from '../utils'
 
 const searchKey = ref('')
 

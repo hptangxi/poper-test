@@ -39,7 +39,7 @@ onMounted(() => {
 <template>
   <img
     class="object-cover rounded-lg border"
-    :src="imageSrc || '@/assets/images/image.png'"
+    :src="imageSrc || './images/image.png'"
     alt=""
     ref="imageRef"
   />
