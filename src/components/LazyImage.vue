@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import defaultImg from '../assets/images/image.png'
 
 const props = defineProps({
   src: String
@@ -39,7 +40,7 @@ onMounted(() => {
 <template>
   <img
     class="object-cover rounded-lg border"
-    :src="imageSrc || '/poper-test/images/image.png'"
+    :src="imageSrc || defaultImg"
     alt=""
     ref="imageRef"
   />
