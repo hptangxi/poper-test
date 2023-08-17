@@ -32,7 +32,7 @@ const createNewsList = (count: number): NewsItem[] => {
     newsArr.push({
       title,
       date: currentDate.toISOString().slice(0, 10),
-      image: `https://hptangxi.github.io/poper-test/images/news_${countryIndex}.jpeg`,
+      image: `news_${countryIndex}.jpeg`,
       desc: 'An approachable, performant and versatile framework for building web user interfaces. Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation. Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.'
     })
   }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NewsItem } from '../utils/dataset'
+import { NewsItem } from '@/utils/dataset'
 import LazyImage from './LazyImage.vue'
 import { useRouter } from 'vue-router'
 
@@ -41,7 +41,7 @@ const goDetail = (item: NewsItem) => {
         </div>
         <lazy-image
           class="md:w-32 md:h-32 w-20 h-20 shrink-0 ml-2.5 mt-2"
-          :src="l.image"
+          :src="`@/assets/images/${l.image}`"
         />
       </div>
     </li>

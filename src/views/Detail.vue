@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { totalList } from '../utils/dataset'
-import BackTop from '../components/BackTop.vue'
+import { totalList } from '@/utils/dataset'
+import BackTop from '@/components/BackTop.vue'
 
 const { title } = useRoute().params
 const item = totalList.find(l => l.title === title)
@@ -36,16 +36,16 @@ const onAudioPlay = () => {
         playsinline
         webkit-playsinline
         preload="metadata"
-        :poster="detail.image"
+        :poster="`@/assets/images${detail.image}`"
         @play="onVideoPlay"
       >
-        <source src="../assets/media/movie.mp4" type="video/mp4" />
+        <source src="@/assets/media/movie.mp4" type="video/mp4" />
       </video>
     </div>
     <audio
       ref="audioRef"
       class="mt-5"
-      src="../assets/media/music.mp3"
+      src="@/assets/media/music.mp3"
       controls
       @play="onAudioPlay"
     />

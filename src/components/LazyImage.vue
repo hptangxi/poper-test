@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import defaultImg from '../assets/images/image.png'
 
 const props = defineProps({
   src: String
@@ -40,7 +39,7 @@ onMounted(() => {
 <template>
   <img
     class="object-cover rounded-lg border"
-    :src="imageSrc || defaultImg"
+    :src="imageSrc || '@/assets/images/image.png'"
     alt=""
     ref="imageRef"
   />
