@@ -20,13 +20,14 @@ const router = useRouter()
 
 const goDetail = (item: NewsItem) => {
   router.push(`/detail/${item.title}`)
+  localStorage.setItem("curNews", JSON.stringify(item))
 }
 </script>
 
 <template>
   <ul>
     <li
-      class="mt-2.5 border shadow-md rounded-lg p-4 cursor-pointer"
+      class="mt-2.5 border shadow-md rounded-lg p-4 cursor-pointer active:bg-sky-400/10"
       v-for="(l, lIndex) in list"
       :key="lIndex"
       @click="goDetail(l)"

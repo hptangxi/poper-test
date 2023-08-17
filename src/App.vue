@@ -11,8 +11,9 @@ onMounted(() => {
   <div class="max-w-screen-lg mt-0 mx-auto">
     <router-view v-slot="{ Component }">
       <keep-alive>
-        <component :is="Component" />
+        <component v-if="$route.meta.keepAlive" :is="Component" />
       </keep-alive>
+      <component v-if="!$route.meta.keepAlive" :is="Component" />
     </router-view>
   </div>
 </template>

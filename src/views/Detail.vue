@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { totalList } from '../utils/dataset'
+import { totalList, NewsItem } from '../utils/dataset'
 import BackTop from '../components/BackTop.vue'
 
 const { title } = useRoute().params
-const item = totalList.find(l => l.title === title)
-
-const detail = {
-  ...item,
-  desc: item?.desc.repeat(10)
-}
-
+const detail = ref<NewsItem>({
+  title: '',
+  date: '',
+  image: '',
+  desc: ''
+})
+const loading = ref(true)
 const videoRef = ref<HTMLVideoElement | null>(null)
 const audioRef = ref<HTMLAudioElement | null>(null)
 
@@ -23,10 +23,31 @@ const onAudioPlay = () => {
   videoRef.value?.pause()
 }
 
+onMounted(() => {
+  const curNewsStr = localStorage.getItem('curNews')
+  let item = curNewsStr ? JSON.parse(curNewsStr) : {}
+  if (item.title === title) {
+    detail.value = {
+      ...item,
+      desc: item.desc?.repeat(10)
+    }
+  } else {
+    item = totalList.find(l => l.title === title)
+    if (item) {
+      detail.value = {
+        ...item,
+        desc: item.desc?.repeat(10)
+      }
+    }
+  }
+  loading.value = false
+})
+
 </script>
 
 <template>
-  <div class="px-4 pt-4 pb-10 flex flex-col items-center">
+  <div v-if="loading" class="h-full flex justify-center items-center">loading ...</div>
+  <div class="px-4 pt-4 pb-10 flex flex-col items-center" v-else>
     <h1 class="text-3xl text-sky-500 font-bold py-2">{{ title }}</h1>
     <div class="w-full h-0 pt-[56.25%] relative mt-5">
       <video
