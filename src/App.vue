@@ -8,7 +8,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="max-w-screen-lg mt-0 mx-auto">
+  <div class="m-auto align-baseline text-base text-[#493b32] leading-6 tap-highlight-transparent">
     <router-view v-slot="{ Component }">
       <keep-alive>
         <component v-if="$route.meta.keepAlive" :is="Component" />

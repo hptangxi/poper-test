@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { NewsItem, totalList } from '../utils/dataset'
+import { NewsItem, totalList } from '../utils/news'
 import { debounce, getFilteredList } from '../utils'
 
 const props = defineProps({

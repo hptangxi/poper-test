@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { totalList, NewsItem } from '../utils/dataset'
+import { totalList, NewsItem } from '../utils/news'
 import BackTop from '../components/BackTop.vue'
 
 const { title } = useRoute().params

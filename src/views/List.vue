@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import AutoComplete from '../components/AutoComplete.vue'
 import NewsList from '../components/NewsList.vue'
-import { totalList, NewsItem } from '../utils/dataset'
+import { totalList, NewsItem } from '../utils/news'
 import { getFilteredList } from '../utils'
 
 const searchKey = ref('')

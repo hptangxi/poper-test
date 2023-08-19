@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NewsItem } from '../utils/dataset'
+import { NewsItem } from '../utils/news'
 import LazyImage from './LazyImage.vue'
 import { useRouter } from 'vue-router'
 
