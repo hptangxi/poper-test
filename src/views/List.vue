@@ -5,30 +5,26 @@ import NewsList from '../components/NewsList.vue'
 import { totalList, NewsItem } from '../utils/news'
 import { getFilteredList } from '../utils'
 
-const searchKey = ref('')
+const searchKeys = ref<string[]>([])
 
 let curPage = 1
 let pageSize = 10
 let totalPages = 0
-let lastSearch: {
-  key: string,
-  list: NewsItem[]
-} = {
-  key: '',
-  list: []
-}
+// let lastSearch: {
+//   keys: string[],
+//   list: NewsItem[]
+// } = {
+//   keys: [],
+//   list: []
+// }
 
 const displayList = ref<NewsItem[]>([])
 
 const getDisplayList = () => {
   let list: NewsItem[]
-  if (searchKey.value && searchKey.value === lastSearch.key) {
-    list = lastSearch.list
-  } else {
-    list = searchKey.value ? getFilteredList(totalList, 'title', searchKey.value) : totalList
-    lastSearch.key = searchKey.value
-    lastSearch.list = list
-  }
+  list = searchKeys.value.length ? getFilteredList(totalList, searchKeys.value) : totalList
+  // lastSearch.keys = searchKeys.value
+  // lastSearch.list = list
   const startIndex = (curPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   displayList.value = list.slice(startIndex, endIndex);
@@ -52,8 +48,9 @@ const changePage = (page: number) => {
   <div class="fixed bg-white w-full shadow z-10 left-0 top-0">
     <div class="max-w-screen-lg p-4 mt-0 mx-auto">
       <auto-complete
-        v-model="searchKey"
-        @change="handleSearch"
+        v-model="searchKeys"
+        @search="handleSearch"
+        @clear="handleSearch"
       />
     </div>
   </div>

@@ -9,17 +9,21 @@ export const debounce = <T extends (...args: any[]) => void>(func: T, delay: num
   }
 }
 
-export const getFilteredList = (list: any[], key: string, value?: string, count?: number) => {
-  if (value) {
+export const getFilteredList = (list: any[], key?: string | string[], count?: number) => {
+  if (key) {
     const newArr = []
     for (const s of list) {
-      if (s[key].toLowerCase().includes(value.toLowerCase())) {
+      if (Array.isArray(key)) {
+        if (key.includes(s.title)) {
+          newArr.push(s)
+        }
+      } else if (s.title.toLowerCase().includes(key.toLowerCase())) {
         newArr.push(s)
       }
       if (count && newArr.length === count) break
     }
     return newArr
   } else {
-    return []
+    return list.slice(0, count)
   }
 }

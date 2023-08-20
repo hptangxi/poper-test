@@ -65,7 +65,7 @@ const handleMouseLeaveMenu = (mIndex: number) => {
 </script>
 
 <template>
-  <div class="relative max-w-full min-h-full p-0 bg-white/93">
+  <div class="relative max-w-full min-h-full p-0 bg-white/93 align-baseline">
     <header class="new-header">
       <a href="https://comiru.jp/"><img class="logo" :src="'./images/logo.png'" alt=""></a>
       <h1 class="header-title">塾専用コミュニケーション &amp;業務管理システム</h1>
@@ -283,25 +283,5 @@ const handleMouseLeaveMenu = (mIndex: number) => {
 </template>
 
 <style scoped>
-.slide-down-enter-active,
-.slide-down-leave-active {
-  transition: all 0.3s;
-  overflow: hidden;
-}
-.slide-down-enter-from,
-.slide-down-leave-to {
-  height: 0 !important;
-  /* transform: translateY(-10px); */
-  overflow: hidden;
-  opacity: 0;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+@import url('../styles/login.css');
 </style>

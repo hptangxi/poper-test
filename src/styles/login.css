@@ -12010,7 +12010,7 @@ ul.payment-list .status-payed {
   fill: currentColor;
   overflow: hidden;
 }
-@font-face {
+/* @font-face {
   font-family: comirufont;
   src: url(/css/font/iconfont.eot?t=1687314660033);
   src: url(/css/font/iconfont.eot?t=1687314660033#iefix)
@@ -12019,7 +12019,7 @@ ul.payment-list .status-payed {
     url(/css/font/iconfont.woff?t=1687314660033) format("woff"),
     url(/css/font/iconfont.ttf?t=1687314660033) format("truetype"),
     url(/css/font/iconfont.svg?t=1687314660033#comirufont) format("svg");
-}
+} */
 .cr-result-reports:before {
   content: "\e6d2";
 }
@@ -14878,7 +14878,7 @@ footer .registration {
     position: absolute;
     /* display: none; */
     top: 0;
-    left: 170px;
+    left: 160px;
     box-sizing: content-box;
   }
   .new-header .sub > li > .sub-container .sub-menu {
