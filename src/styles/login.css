@@ -206,17 +206,12 @@ a:hover {
   margin: 20px 0;
 }
 .login-methods {
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -ms-flex-align: stretch;
   align-items: stretch;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 .login-methods .login-methods-item {
-  -ms-flex: 1;
   flex: 1;
   border-right: 2px solid #b4a094;
   padding: 0 8px;
@@ -444,14 +439,10 @@ a:hover {
     font-size: 14px !important;
     padding: 0 37px 0 0;
     height: 100%;
-    display: -ms-flexbox;
     display: flex;
     -webkit-box-flex: 1;
-    -ms-flex-pack: justify;
     justify-content: space-between;
-    -ms-flex-align: center;
     align-items: center;
-    -ms-flex-item-align: stretch;
     align-self: stretch;
     align-items: center;
   }
@@ -521,11 +512,8 @@ a:hover {
     top: 0;
     bottom: 0;
     margin: auto;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: center;
     justify-content: center;
-    -ms-flex-align: center;
     align-items: center;
     float: left;
     overflow: hidden;
@@ -603,7 +591,6 @@ a:hover {
 @media screen and (max-width: 800px) {
   .login-methods .login-methods-item {
     width: 100%;
-    -ms-flex: auto;
     flex: auto;
     border-right: none;
     padding: 16px 8px;

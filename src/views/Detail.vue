@@ -46,31 +46,33 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="loading" class="h-full flex justify-center items-center">loading ...</div>
-  <div class="px-4 pt-4 pb-10 flex flex-col items-center" v-else>
-    <h1 class="text-3xl text-sky-500 font-bold py-2">{{ title }}</h1>
-    <div class="w-full h-0 pt-[56.25%] relative mt-5">
-      <video
-        class="absolute top-0 left-0 w-full h-full bg-black"
-        ref="videoRef"
+  <div class="max-w-[1100px] m-auto">
+    <div v-if="loading" class="h-full flex justify-center items-center">loading ...</div>
+    <div class="px-4 pt-4 pb-10 flex flex-col items-center" v-else>
+      <h1 class="text-3xl text-sky-500 font-bold py-2">{{ title }}</h1>
+      <div class="w-full h-0 pt-[56.25%] relative mt-5">
+        <video
+          class="absolute top-0 left-0 w-full h-full bg-black"
+          ref="videoRef"
+          controls
+          playsinline
+          webkit-playsinline
+          preload="metadata"
+          :poster="`./images/${detail.image}`"
+          @play="onVideoPlay"
+        >
+          <source :src="'./media/movie.mp4'" type="video/mp4" />
+        </video>
+      </div>
+      <audio
+        ref="audioRef"
+        class="mt-5"
+        src="./media/music.mp3"
         controls
-        playsinline
-        webkit-playsinline
-        preload="metadata"
-        :poster="`./images/${detail.image}`"
-        @play="onVideoPlay"
-      >
-        <source :src="'./media/movie.mp4'" type="video/mp4" />
-      </video>
+        @play="onAudioPlay"
+      />
+      <p class="mt-3">{{ detail.desc }}</p>
     </div>
-    <audio
-      ref="audioRef"
-      class="mt-5"
-      src="./media/music.mp3"
-      controls
-      @play="onAudioPlay"
-    />
-    <p class="mt-3">{{ detail.desc }}</p>
   </div>
   <back-top />
 </template>

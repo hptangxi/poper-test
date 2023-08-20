@@ -41,12 +41,7 @@ describe('Login Page', () => {
         plugins: [router]
       }
     })
-    const usernameInput = wrapper.find('input[id="username"]')
-    const passwordInput = wrapper.find('input[id="password"]')
     const loginButton = wrapper.find('button[id="submit-btn"]')
-
-    await usernameInput.setValue('user')
-    await passwordInput.setValue('pass')
     await loginButton.trigger('click')
 
     await router.isReady()
