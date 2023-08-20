@@ -52,6 +52,7 @@ const handleSearch = () => {
 const deleteTag = (title: string) => {
   const arr = props.modelValue.filter(v => v !== title)
   emit('update:modelValue', arr)
+  if (!arr.length) emit('clear')
 }
 
 const handleDelete = (item: NewsItem) => {
